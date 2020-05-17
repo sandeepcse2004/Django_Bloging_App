@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Article
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from . import forms
 
 # Create your views here.
 def home(request):
@@ -14,3 +16,16 @@ def article_detail(request, slug):
     # return HttpResponse(slug)
     article = Article.objects.get(slug=slug)
     return render(request, 'articles/article_detail.html', {'article' : article})
+
+
+def article_create(request):
+    if request.method == 'POST':
+        form = forms.CreateArticle(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.author = request.user
+            instance.save()
+            return redirect('articles:home')
+    else:
+        form = forms.CreateArticle()
+    return render(request, 'articles/article_create.html', {'form' : form})
