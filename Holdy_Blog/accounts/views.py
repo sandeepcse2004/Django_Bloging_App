@@ -12,7 +12,9 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             # return redirect(request, 'articles/articles_display.html')
-            return redirect('articles:home')
+            return redirect('accounts:login')
+            # form1 = AuthenticationForm()
+            # return render(request, 'accounts/login.html', {'form1' : form1})
     else:
         form = UserCreationForm()
     return render(request, 'accounts/signup.html', {'form' : form})
