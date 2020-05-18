@@ -8,4 +8,17 @@
           <p>{{article.date}}</p>
       </div>
   </div>
+  <div class="login-singup">
+    <form action="/accounts/login/">
+      <!-- {% csrf_token %}
+      {{ form }} -->
+      <input type="submit" value="Login">
+  </form>
+  <form action="/accounts/signup/">
+    <!-- {% csrf_token %}
+    {{ form }} -->
+    <input type="submit" value="Signup">
+</form>
+  </div>
+  </div>
   {% endblock %}
